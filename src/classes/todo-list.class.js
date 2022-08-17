@@ -17,7 +17,6 @@ export class TodoList{
     marcarCompletado( id ){
         for (const todo of this.todos) {
             if(todo.id == id){
-                console.log(todo.id, id);
                 todo.completado = !todo.completado;
                 break;
             }
@@ -31,7 +30,6 @@ export class TodoList{
     
     guardarLocalStorage(){
         localStorage.setItem('todo', JSON.stringify(this.todos));
-        console.log(this.todos);
     }
 
     cargarLocalStorage(){
@@ -42,6 +40,15 @@ export class TodoList{
         // this.todos = this.todos.map( obj => Todo.fromJson( obj ) ); // para convertir los objetos del local storage en objetos Todo
         this.todos = this.todos.map( Todo.fromJson ); // para convertir los objetos del local storage en objetos Todo
         //console.warn(this.todos);
+        this.obtenerNumPendientes();
     }
-
+    obtenerNumPendientes(){
+        let num = 0;
+        for(const todo of this.todos){
+            if(!todo.completado){
+                num++;
+            }
+        }
+        return num;
+    }
 }
